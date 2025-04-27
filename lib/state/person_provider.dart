@@ -29,25 +29,56 @@ class PersonProvider with ChangeNotifier {
     }
   }
 
-  void addPerson(Person person) {
-    _persons.add(person);
-    notifyListeners();
-    // TODO: 调用API保存数据
-  }
-
-  void updatePerson(Person updatedPerson) {
-    final index = _persons.indexWhere((p) => p.id == updatedPerson.id);
-    if (index != -1) {
-      _persons[index] = updatedPerson;
+  Future<void> addPerson(Person person) async {
+    try {
+      final input = CreatePersonInput(
+        name: person.name,
+        birthDate: person.birthDate,
+        deathDate: person.deathDate,
+        gender: person.gender,
+        description: person.description,
+      );
+      final newPerson = await _apiService.createPerson(input);
+      _persons.add(newPerson);
       notifyListeners();
-      // TODO: 调用API更新数据
+    } catch (e) {
+      _error = e.toString();
+      notifyListeners();
     }
   }
 
-  void deletePerson(String id) {
-    _persons.removeWhere((p) => p.id == id);
-    notifyListeners();
-    // TODO: 调用API删除数据
+  Future<void> updatePerson(Person person) async {
+    try {
+      final input = UpdatePersonInput(
+        name: person.name,
+        birthDate: person.birthDate,
+        deathDate: person.deathDate,
+        gender: person.gender,
+        description: person.description,
+      );
+      final updatedPerson = await _apiService.updatePerson(person.id, input);
+      final index = _persons.indexWhere((p) => p.id == person.id);
+      if (index != -1) {
+        _persons[index] = updatedPerson;
+        notifyListeners();
+      }
+    } catch (e) {
+      _error = e.toString();
+      notifyListeners();
+    }
+  }
+
+  Future<void> deletePerson(String id) async {
+    try {
+      final success = await _apiService.deletePerson(id);
+      if (success) {
+        _persons.removeWhere((p) => p.id == id);
+        notifyListeners();
+      }
+    } catch (e) {
+      _error = e.toString();
+      notifyListeners();
+    }
   }
 
   Person? getPersonById(String id) {
@@ -58,12 +89,19 @@ class PersonProvider with ChangeNotifier {
     }
   }
 
-  void addRelationship(
-      String personId, String relatedPersonId, String relationshipType) {
-    final person = getPersonById(personId);
-    final relatedPerson = getPersonById(relatedPersonId);
-    if (person == null || relatedPerson == null) return;
-    updatePerson(person);
-    updatePerson(relatedPerson);
+  Future<void> addRelationship(
+      String personId, String relatedPersonId, RelationshipType type) async {
+    try {
+      final updatedPerson =
+          await _apiService.addRelationship(personId, relatedPersonId, type);
+      final index = _persons.indexWhere((p) => p.id == personId);
+      if (index != -1) {
+        _persons[index] = updatedPerson;
+        notifyListeners();
+      }
+    } catch (e) {
+      _error = e.toString();
+      notifyListeners();
+    }
   }
 }

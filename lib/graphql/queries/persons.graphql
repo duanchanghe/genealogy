@@ -1,0 +1,107 @@
+query GetPersons {
+  persons {
+    id
+    name
+    birthDate
+    deathDate
+    gender
+    description
+    father {
+      id
+      name
+    }
+    mother {
+      id
+      name
+    }
+    spouses {
+      id
+      name
+    }
+    children {
+      id
+      name
+    }
+  }
+}
+
+mutation CreatePerson($input: CreatePersonInput!) {
+  createPerson(input: $input) {
+    id
+    name
+    birthDate
+    deathDate
+    gender
+    description
+    father {
+      id
+      name
+    }
+    mother {
+      id
+      name
+    }
+    spouses {
+      id
+      name
+    }
+    children {
+      id
+      name
+    }
+  }
+}
+
+mutation UpdatePerson($id: ID!, $input: UpdatePersonInput!) {
+  updatePerson(id: $id, input: $input) {
+    id
+    name
+    birthDate
+    deathDate
+    gender
+    description
+    father {
+      id
+      name
+    }
+    mother {
+      id
+      name
+    }
+    spouses {
+      id
+      name
+    }
+    children {
+      id
+      name
+    }
+  }
+}
+
+mutation DeletePerson($id: ID!) {
+  deletePerson(id: $id)
+}
+
+mutation AddRelationship($personId: ID!, $relatedPersonId: ID!, $relationshipType: RelationshipType!) {
+  addRelationship(personId: $personId, relatedPersonId: $relatedPersonId, relationshipType: $relationshipType) {
+    id
+    name
+    father {
+      id
+      name
+    }
+    mother {
+      id
+      name
+    }
+    spouses {
+      id
+      name
+    }
+    children {
+      id
+      name
+    }
+  }
+} 

@@ -145,7 +145,7 @@ class _PersonFormScreenState extends State<PersonFormScreen> {
     );
   }
 
-  void _submitForm() {
+  void _submitForm() async {
     if (_formKey.currentState!.validate()) {
       final person = Person(
         id: widget.person?.id ??
@@ -165,12 +165,14 @@ class _PersonFormScreenState extends State<PersonFormScreen> {
 
       final provider = context.read<PersonProvider>();
       if (widget.person == null) {
-        provider.addPerson(person);
+        await provider.addPerson(person);
       } else {
-        provider.updatePerson(person);
+        await provider.updatePerson(person);
       }
 
-      Navigator.pop(context);
+      if (mounted) {
+        Navigator.pop(context);
+      }
     }
   }
 }
