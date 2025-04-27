@@ -1,0 +1,22 @@
+query users {
+  allUsers(limit: 10, offset: 10) {
+    email
+    family {
+      description
+      familyCode
+      familyId
+      location {
+        address
+        latitude
+        longitude
+      }
+      name
+    }
+    firstName
+    id
+    isActive
+    isStaff
+    lastName
+    username
+  }
+}

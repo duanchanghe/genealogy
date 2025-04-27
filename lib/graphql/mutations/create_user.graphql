@@ -1,0 +1,61 @@
+mutation CreateUser(
+  $username: String!
+  $password: String!
+  $firstName: String
+  $lastName: String
+  $email: String
+  $birthDate: Date
+  $deathDate: Date
+  $milkName: String
+  $phone: String
+  $gender: String
+  $birthPlaceId: ID
+  $burialPlaceId: ID
+  $familyId: ID
+) {
+  createUser(
+    username: $username
+    password: $password
+    firstName: $firstName
+    lastName: $lastName
+    email: $email
+    birthDate: $birthDate
+    deathDate: $deathDate
+    milkName: $milkName
+    phone: $phone
+    gender: $gender
+    birthPlaceId: $birthPlaceId
+    burialPlaceId: $burialPlaceId
+    familyId: $familyId
+  ) {
+    user {
+      id
+      username
+      firstName
+      lastName
+      email
+      phone
+      birthDate
+      deathDate
+      milkName
+      gender
+      birthPlace {
+        id
+        latitude
+        longitude
+        address
+      }
+      burialPlace {
+        id
+        latitude
+        longitude
+        address
+      }
+      family {
+        familyId
+        familyCode
+        name
+      }
+    }
+  }
+} 

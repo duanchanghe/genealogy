@@ -1,0 +1,14 @@
+query families {
+  allFamilies(limit: 10, offset: 10) {
+    description
+    familyCode
+    familyId
+    location {
+      address
+      id
+      latitude
+      longitude
+    }
+    name
+  }
+}

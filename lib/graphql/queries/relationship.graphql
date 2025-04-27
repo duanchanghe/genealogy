@@ -1,0 +1,5 @@
+query Relationship($id: ID!) {
+  relationship(id: $id) {
+    relationshipType
+  }
+} 

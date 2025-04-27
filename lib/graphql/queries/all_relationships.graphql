@@ -1,0 +1,5 @@
+query AllRelationships($userId: ID!, $offset: Int = 0, $limit: Int = 10) {
+  allRelationships(userId: $userId, offset: $offset, limit: $limit) {
+    relationshipType
+  }
+} 

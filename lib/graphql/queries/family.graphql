@@ -1,0 +1,14 @@
+query Family($id: ID!) {
+  family(id: $id) {
+    familyId
+    familyCode
+    name
+    description
+    location {
+      id
+      latitude
+      longitude
+      address
+    }
+  }
+} 

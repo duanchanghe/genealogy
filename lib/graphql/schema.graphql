@@ -7,8 +7,6 @@ type Query {
   family(id: ID!): FamilyType
   location(id: ID!): LocationType
   relationship(id: ID!): RelationshipType
-  persons: [Person!]!
-  person(id: ID!): Person
 }
 
 type UserType {
@@ -19,8 +17,40 @@ type UserType {
   email: String!
   isStaff: Boolean!
   isActive: Boolean!
+  dateJoined: DateTime!
+  birthDate: Date
+  deathDate: Date
+  milkName: String
+  birthPlace: LocationType
+  burialPlace: LocationType
+  phone: String!
   family: FamilyType
+  gender: UserUserGenderChoices!
 }
+
+"""
+The `DateTime` scalar type represents a DateTime
+value as specified by
+[iso8601](https://en.wikipedia.org/wiki/ISO_8601).
+"""
+scalar DateTime
+
+"""
+The `Date` scalar type represents a Date
+value as specified by
+[iso8601](https://en.wikipedia.org/wiki/ISO_8601).
+"""
+scalar Date
+
+type LocationType {
+  id: ID!
+  latitude: Decimal!
+  longitude: Decimal!
+  address: String
+}
+
+"""The `Decimal` scalar type represents a python Decimal."""
+scalar Decimal
 
 type FamilyType {
   familyId: UUID!
@@ -36,15 +66,17 @@ in fields, resolvers and input.
 """
 scalar UUID
 
-type LocationType {
-  id: ID!
-  latitude: Decimal!
-  longitude: Decimal!
-  address: String
-}
+"""An enumeration."""
+enum UserUserGenderChoices {
+  """男"""
+  MALE
 
-"""The `Decimal` scalar type represents a python Decimal."""
-scalar Decimal
+  """女"""
+  FEMALE
+
+  """其他"""
+  OTHER
+}
 
 type RelationshipType {
   relationshipType: UserRelationshipRelationshipTypeChoices!
@@ -227,10 +259,6 @@ type Mutation {
   registerWithPhone(code: String!, password: String!, phone: String!, username: String): AuthResponse
   loginWithPhone(code: String!, phone: String!): AuthResponse
   logout: Logout
-  createPerson(input: CreatePersonInput!): Person!
-  updatePerson(id: ID!, input: UpdatePersonInput!): Person!
-  deletePerson(id: ID!): Boolean!
-  addRelationship(personId: ID!, relatedPersonId: ID!, relationshipType: RelationshipType!): Person!
 }
 
 """
@@ -343,13 +371,6 @@ type CreateUser {
 }
 
 """
-The `Date` scalar type represents a Date
-value as specified by
-[iso8601](https://en.wikipedia.org/wiki/ISO_8601).
-"""
-scalar Date
-
-"""
 更新用户信息
 
 示例:
@@ -421,39 +442,4 @@ type AuthResponse {
 
 type Logout {
   success: Boolean
-}
-
-type Person {
-  id: ID!
-  name: String!
-  birthDate: String
-  deathDate: String
-  gender: String
-  description: String
-  father: Person
-  mother: Person
-  spouses: [Person!]!
-  children: [Person!]!
-}
-
-input CreatePersonInput {
-  name: String!
-  birthDate: String
-  deathDate: String
-  gender: String
-  description: String
-}
-
-input UpdatePersonInput {
-  name: String
-  birthDate: String
-  deathDate: String
-  gender: String
-  description: String
-}
-
-enum RelationshipType {
-  FATHER
-  MOTHER
-  SPOUSE
 }

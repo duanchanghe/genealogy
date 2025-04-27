@@ -1,0 +1,8 @@
+query AllLocations($offset: Int = 0, $limit: Int = 10) {
+  allLocations(offset: $offset, limit: $limit) {
+    id
+    latitude
+    longitude
+    address
+  }
+} 

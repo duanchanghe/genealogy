@@ -1,0 +1,14 @@
+query AllFamilies($offset: Int = 0, $limit: Int = 10) {
+  allFamilies(offset: $offset, limit: $limit) {
+    familyId
+    familyCode
+    name
+    description
+    location {
+      id
+      latitude
+      longitude
+      address
+    }
+  }
+} 

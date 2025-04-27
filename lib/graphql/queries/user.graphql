@@ -1,0 +1,41 @@
+query User($id: ID!) {
+  user(id: $id) {
+    id
+    username
+    firstName
+    lastName
+    email
+    isStaff
+    isActive
+    dateJoined
+    birthDate
+    deathDate
+    milkName
+    birthPlace {
+      id
+      latitude
+      longitude
+      address
+    }
+    burialPlace {
+      id
+      latitude
+      longitude
+      address
+    }
+    phone
+    family {
+      familyId
+      familyCode
+      name
+      description
+      location {
+        id
+        latitude
+        longitude
+        address
+      }
+    }
+    gender
+  }
+} 

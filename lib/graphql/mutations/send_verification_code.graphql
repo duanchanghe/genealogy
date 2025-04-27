@@ -1,0 +1,6 @@
+mutation SendVerificationCode($phone: String!) {
+  sendVerificationCode(phone: $phone) {
+    success
+    errors
+  }
+} 

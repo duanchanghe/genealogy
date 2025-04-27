@@ -1,0 +1,10 @@
+mutation CreateLocation($latitude: Decimal!, $longitude: Decimal!, $address: String) {
+  createLocation(latitude: $latitude, longitude: $longitude, address: $address) {
+    location {
+      id
+      latitude
+      longitude
+      address
+    }
+  }
+} 

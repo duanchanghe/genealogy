@@ -1,0 +1,16 @@
+mutation RegisterWithPhone($phone: String!, $code: String!, $password: String!, $username: String) {
+  registerWithPhone(phone: $phone, code: $code, password: $password, username: $username) {
+    token
+    user {
+      id
+      username
+      firstName
+      lastName
+      email
+      phone
+      gender
+    }
+    success
+    errors
+  }
+} 

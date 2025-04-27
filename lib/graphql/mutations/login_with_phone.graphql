@@ -1,0 +1,16 @@
+mutation LoginWithPhone($phone: String!, $code: String!) {
+  loginWithPhone(phone: $phone, code: $code) {
+    token
+    user {
+      id
+      username
+      firstName
+      lastName
+      email
+      phone
+      gender
+    }
+    success
+    errors
+  }
+} 

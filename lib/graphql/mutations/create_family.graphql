@@ -1,0 +1,16 @@
+mutation CreateFamily($familyCode: String!, $name: String!, $description: String, $locationId: ID) {
+  createFamily(familyCode: $familyCode, name: $name, description: $description, locationId: $locationId) {
+    family {
+      familyId
+      familyCode
+      name
+      description
+      location {
+        id
+        latitude
+        longitude
+        address
+      }
+    }
+  }
+} 
