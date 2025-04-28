@@ -1,13 +1,12 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:genealogy/services/graphql_service.dart';
 import 'package:provider/provider.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'routes/app_routes.dart';
 import 'routes/app_router.dart';
 import 'state/user_provider.dart';
-import 'services/api_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,27 +23,27 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider(
-          create: (_) => ApiService(),
+          create: (_) => GraphQLService(),
         ),
-        ChangeNotifierProxyProvider<ApiService, UserProvider>(
-          create: (context) => UserProvider(context.read<ApiService>()),
-          update: (context, apiService, previous) => UserProvider(apiService),
+        ChangeNotifierProxyProvider<GraphQLService, UserProvider>(
+          create: (context) => UserProvider(context.read<GraphQLService>()),
+          update: (context, graphqlService, previous) => UserProvider(graphqlService),
         ),
       ],
-      child: CupertinoApp(
+      child: const CupertinoApp(
         title: '家谱',
-        theme: const CupertinoThemeData(
+        theme: CupertinoThemeData(
           primaryColor: CupertinoColors.systemBlue,
           brightness: Brightness.light,
         ),
-        localizationsDelegates: const [
+        localizationsDelegates: [
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate,
         ],
-        supportedLocales: const [Locale('en'), Locale('zh')],
-        locale: const Locale('en'),
+        supportedLocales: [Locale('en'), Locale('zh')],
+        locale: Locale('en'),
         initialRoute: AppRoutes.userList,
         onGenerateRoute: AppRouter.generateRoute,
       ),

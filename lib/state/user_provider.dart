@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import '../services/api_service.dart';
+import '../services/graphql_service.dart';
 import '../services/service_factory.dart';
 import '../services/user_service.dart';
 
 class UserProvider extends ChangeNotifier {
-  final ApiService _apiService;
+  final GraphQLService _graphQLService;
   final UserService _userService;
   bool _isLoading = false;
   String? _error;
@@ -14,8 +14,8 @@ class UserProvider extends ChangeNotifier {
   QueryResult? _currentUser;
   List<QueryResult> _users = [];
 
-  UserProvider([ApiService? apiService])
-      : _apiService = ApiService(),
+  UserProvider([GraphQLService? graphQLService])
+      : _graphQLService = GraphQLService(),
         _userService = ServiceFactory.instance.userService;
 
   bool get isLoading => _isLoading;

@@ -26,7 +26,7 @@ packages:
     source: hosted
     version: "2.5.0"
   artemis:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: artemis
       sha256: "06a268b75948a9822572f65280cc679bfe889bf84fa02283ed75470670d2a3e0"

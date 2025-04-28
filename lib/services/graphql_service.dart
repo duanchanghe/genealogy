@@ -1,3 +1,4 @@
+import 'package:artemis/schema/graphql_query.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import '../config/app_config.dart';
 
@@ -20,32 +21,20 @@ class GraphQLService {
   GraphQLClient get client => _client;
 
   // 执行查询
-  Future<QueryResult> query({
-    required String query,
-    Map<String, dynamic>? variables,
-    FetchPolicy? fetchPolicy,
-  }) async {
+  Future<QueryResult> query(GraphQLQuery query) async {
     final options = QueryOptions(
-      document: gql(query),
-      variables: variables ?? {},
-      fetchPolicy: fetchPolicy ?? FetchPolicy.noCache,
+      document: query.document,
+      fetchPolicy: FetchPolicy.cacheAndNetwork,
     );
-
     return await _client.query(options);
   }
 
   // 执行变更
-  Future<QueryResult> mutate({
-    required String mutation,
-    Map<String, dynamic>? variables,
-    FetchPolicy? fetchPolicy,
-  }) async {
+  Future<QueryResult> mutate(GraphQLQuery mutation) async {
     final options = MutationOptions(
-      document: gql(mutation),
-      variables: variables ?? {},
-      fetchPolicy: fetchPolicy ?? FetchPolicy.noCache,
+      document: mutation.document,
+      fetchPolicy: FetchPolicy.cacheAndNetwork,
     );
-
     return await _client.mutate(options);
   }
 
